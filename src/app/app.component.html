@@ -1,0 +1,130 @@
+<div class="content" role="main">
+
+  <!-- header -->
+  <h1>Sorting <b style="font-weight: 400;">Visualizer</b></h1>
+  <p>Sorting is one of the fundementable building blocks in Computer Science. It is the process of
+    organizing elements of a data set in a particular order. Not only does sorting reduce the
+    complexity of a problem but also makes searching data faster. Each sorting algorithm has their
+    own benefits and weak areas. Sorting Visualizer illustrates the effectiveness and performance
+    of various sorting algorithm techniques based on their input size and initial condition. Note, 
+    the algorithms implemented are their general versions. Some algorithms can be further optimized.
+    Sorting Visualizer illustrates how sorting algorithms function. It is important to note that the 
+    running time are close approximations. To get started, follow the stepper and select the input 
+    size and initial condition on the data set. Once you have your conditions selected, click the 
+    "Sort" button to start the visualization!
+  </p>
+
+  <!-- stepper -->
+  <mat-horizontal-stepper style="width: 100%; height: 215px;" [linear]="isLinear" #stepper>
+
+    <!-- input size -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel><b>Input Size</b></ng-template>
+        <p style="text-align: center;">Move the slider to select the size of the data set</p>
+        <span style="display: flex; justify-content: center;">
+          <mat-slider (click)="refreshSort()" (input)="size = $event.value" [value]="size" step="10" min="10" max="50" tickInterval="1"></mat-slider>
+          <span style="margin-top: 12px;">{{ size }}</span>
+        </span>
+      </form>
+    </mat-step>
+
+    <!-- initial condition -->
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel><b>Initial Condition</b></ng-template>
+        <p style="text-align: center;">Select the initial condition of the data set.</p>
+        <div style="display: flex; justify-content: center;">
+          <mat-radio-group [(ngModel)]="condition" formControlName="secondCtrl" color="accent"
+            aria-label="Select an option">
+            <mat-radio-button [checked]="true" (click)="refreshSort()"  value="random">Random</mat-radio-button>
+            <mat-radio-button (click)="refreshSort()"  value="nearly_sorted">Nearly Sorted</mat-radio-button>
+            <mat-radio-button (click)="refreshSort()"  value="reversed">Reversed</mat-radio-button>
+            <mat-radio-button (click)="refreshSort()"  value="few_unique">Few Unique</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- visualize -->
+    <mat-step>
+      <ng-template matStepLabel><b>Visualize</b></ng-template>
+      <p style="text-align: center;">Click Sort to visualize the sorting algorithms.</p>
+      <div style="display: flex; justify-content: center;">
+        <button (click)="sort()" mat-raised-button color="primary" style="width: 100px;">Sort</button>
+        <button (click)= "refreshSort()" style="margin-left: 16px;" mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  
+  <input type="hidden" #selection>
+
+  <!-- algorithm cards -->
+  <span>
+    <div *ngFor="let alg of algs" class="card-algo">
+      <mat-card style="text-align:center;" class="card-content-algo" (click)="openDialog(alg)">
+        <b>{{alg.title}}</b>
+        <span>
+          <app-chart  [size]="size" [condition]="condition" [algorithm]="alg.title" [(sorted)]="sorted"></app-chart>
+        </span>
+      </mat-card>
+    </div>
+  </span>
+
+  <p>to learn more about the algorithm, click on the sorting algorithm card.</p>
+
+  <!-- Links -->
+  <div class="card-container">
+
+    <!-- gitHub -->
+    <a class="circle-link" title="GitHub" href="https://github.com/yazamiDev" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="25.5" height="25.5" 
+      style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024">
+      <path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5C64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9c26.4 39.1 77.9 32.5 104 26c5.7-23.5 17.9-44.5 34.7-60.8c-140.6-25.2-199.2-111-199.2-213c0-49.5 16.3-95 48.3-131.7c-20.4-60.5 1.9-112.3 4.9-120c58.1-5.2 118.5 41.6 123.2 45.3c33-8.9 70.7-13.6 112.9-13.6c42.4 0 80.2 4.9 113.5 13.9c11.3-8.6 67.3-48.8 121.3-43.9c2.9 7.7 24.7 58.3 5.5 118c32.4 36.8 48.9 82.7 48.9 132.3c0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9c177.1-59.7 304.6-227 304.6-424.1c0-247.2-200.4-447.3-447.5-447.3z" fill="#333"/>
+      <rect x="0" y="0" width="1024" height="1024" fill="rgba(0, 0, 0, 0)" /></svg>
+    </a>
+
+    <!-- linkedIn -->
+    <a class="circle-link" title="LinkedIn" href="https://www.linkedin.com/in/yousif-azami-65b4901ba/" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="25.5" height="25.5" 
+      style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" fill="#0e76a8"/>
+        <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" /></svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer style="margin-top: 32px;">
+    Found helpful?&nbsp;
+    <a href="https://github.com/yazamiDev" target="_blank" rel="noopener"> Give the repo a star!
+      <div class="github-star-badge">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+        Star
+      </div>
+    </a>
+    <a href="https://github.com/yazamiDev" target="_blank" rel="noopener">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2" />
+        <path d="M0 0h24v24H0z" fill="none" /></svg>
+    </a>
+  </footer>
+
+  <!-- sign -->
+  <div style="font-size: 12px; padding-top: 16px;">
+    <b>Yousif Azami, 2020</b>
+  </div>
+
+  <!-- background -->
+  <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677"
+    viewBox="0 0 2611.084 485.677">
+    <path id="Path_39" data-name="Path 39"
+      d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+      transform="translate(142.69 -634.312)" fill="#eee" />
+  </svg>
+  
+</div>
+<router-outlet></router-outlet>

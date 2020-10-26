@@ -1,0 +1,15 @@
+.dialog-content {
+    max-width: 405px;
+}
+
+p {
+    padding-bottom: 16px;
+}
+
+mat-dialog-title {
+    padding-bottom: 6px;
+}
+
+mat-dialog-content {
+    padding-bottom: 20px;
+}
