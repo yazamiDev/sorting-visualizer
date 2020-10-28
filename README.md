@@ -1,6 +1,15 @@
-# SampleAngular
+# Sorting Visualizer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.8.
+This repository illustrates the effectiveness and performance of popular sorting algorithms. Sorting is one of the fundementable building blocks in Computer Science. It is the process of organizing elements of a data set in a particular order. Not only does sorting reduce the complexity of a problem but also makes searching data faster. This project demonstrates algorithmic techniques, detailed analysis, and effective use cases. Enjoy learning!
+
+## Algorithms Implemented
+
+Selection Sort<br/>
+Insertion Sort<br/>
+Bubble Sort<br/>
+Heap Sort<br/>
+Merge Sort<br/>
+Quick Sort<br/>
 
 ## Development server
 
